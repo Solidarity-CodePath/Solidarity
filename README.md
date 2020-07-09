@@ -33,17 +33,23 @@ Allows citizens to easily browse and find political organization or support even
 * [ ] Timeline events are shown in order of most popular to least.
 * [ ] User can create their own events and input a title, description, location, and perhaps pictures. Event includes creator name. 
 * [ ] User can click on specific events to see a detailed view of them
-* [ ] User can click on a "like/interested" button on each event, and on a "Going" button on the event.
+* [ ] User can click on a "like/interested" button on each event, and on a "Going" button on the event. Double tap to like
 * [ ] User can click on their profile to view or upload their own picture and see a display of their name below it.
-* [ ] User can click on their profile where they can view events they have liked or clicked "going" for.
+* [ ] User can click on their profile where they can view events they have created.
+* [ ] Google Maps SDK to filter events
+* [ ] Material Design library implemented
+* [ ] 
 
 **Optional Nice-to-have Stories**
 
 * [ ] User can use OAuth to log in with Facebook or Google
 * [ ] User can click a share button on each event to share to another social media platform
+* [ ] User can also view events they liked or clicked "goig" for under their profile
 * [ ] User can choose which events they want to be "visible" on their profile
 * [ ] User can click on names in event descriptions to view other user's profile
-* [ ] 
+* [ ] Users can comment on event posts
+* [ ] Filtering based on tags of posts (Ex: social activism, environmental activism, human rights activism, animal rights activism)
+* [ ] Reformat into fragment based view
 * ...
 
 ### 2. Screen Archetypes
@@ -65,7 +71,7 @@ Allows citizens to easily browse and find political organization or support even
    * ...
 * Profile Screen
    * User can see their own profile picture or upload one in their profile, along with their name.
-   * Under this, they can see events they have recently responded to. 
+   * Under this, they can see events they have created. 
    * ...
 
 ### 3. Navigation
@@ -101,8 +107,66 @@ Allows citizens to easily browse and find political organization or support even
 ## Schema 
 [This section will be completed in Unit 9]
 ### Models
-[Add table of models]
+
+#### User
+
+| Property   |     Type      |  Description |
+|----------|:-------------:|------:|
+| objectId |  String | unique id for the user (default field) |
+| username |    String   |   user username |
+| password | String |    user password |
+| createdAt | DateTime |    When user was created at (default field) |
+| updatedAt | DateTime |    When user was updated at (default field) |
+
+#### Event
+
+| Property   |     Type      |  Description |
+|----------|:-------------:|------:|
+| objectId |  String | unique id for the event (default field) |
+| author |    Pointer to User   |   user author of event |
+| title | String |    title of event |
+| image | File |    image inserted |
+| description | String |    description of event |
+| location | String |    location of event |
+| likesArray | Array of User objects |    All users which liked event |
+| commentsArray | Array of Comment Objects |    All comments inserted on post |
+| createdAt | DateTime |    when event was created at (default field) |
+| updatedAt | DateTime |    when event was created at (default field) |
+
+
+#### Comment (Stretch)
+
+| Property   |     Type      |  Description |
+|----------|:-------------:|------:|
+| objectId |  String | unique id for the comment (default field |
+| author |    String   |   author of comment |
+| content | String |    content of comment |
+| createdAt | DateTime |    when comment was created at (default field) |
+| updatedAt | DateTime |    when comment was updated at (default field) |
+
+
 ### Networking
-- [Add list of network requests by screen ]
+#### Home Feed Screen
+- Read/GET) Query all posts 
+    - Ex: ParseQuery<Post> query = ParseQuery.getQuery(Event.class);
+        query.include(Event.KEY_USER);
+        query.whereEqualTo(Event.KEY_USER, ParseUser.getCurrentUser());
+- (Create/POST) Create a new like on a post
+- (Delete) Delete existing like
+- (Create/POST) Create a new "going" on a post
+- (Delete) Delete existing "going"
+- (Create/POST) Create a new comment on a post
+- (Delete) Delete existing comment
+
+
+#### Create Event Screen
+- (Create/POST) Create a new post object
+
+#### Profile Screen
+- (Read/GET) Query logged in user object
+- (Update/PUT) Update user profile image
+- (Read/GET) Query all posts where user is author
+
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
+
