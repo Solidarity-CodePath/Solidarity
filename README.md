@@ -101,8 +101,10 @@ Allows citizens to easily browse and find political organization or support even
 <img src=https://i.imgur.com/RXw1B2a.png width=600>
 
 ### [BONUS] Digital Wireframes & Mockups
+https://www.figma.com/file/XDFOlDlKKRyigvKtOwTFcU/Solidarity?node-id=0%3A1
 
 ### [BONUS] Interactive Prototype
+https://www.figma.com/file/XDFOlDlKKRyigvKtOwTFcU/Solidarity?node-id=0%3A1
 
 ## Schema 
 [This section will be completed in Unit 9]
