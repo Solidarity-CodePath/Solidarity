@@ -50,6 +50,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLocation"
-        android:text="August 14, 2020" />
+        tools:text="August 14, 2020" />
 
 </RelativeLayout>
