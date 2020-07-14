@@ -203,7 +203,7 @@ public class ComposeFragment extends Fragment {
         event.setAuthor(currentUser);
         event.setTitle(title);
         event.setLocation(location);
-        event.setDate(date);
+        event.setEventDate(date);
 
         file.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {

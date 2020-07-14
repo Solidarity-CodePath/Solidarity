@@ -28,10 +28,7 @@ public class Event extends ParseObject {
         return getString(KEY_DESCRIPTION);
     }
 
-    public void setDescription(String description) {
-        put(KEY_DESCRIPTION, description);
-
-    }
+    public void setDescription(String description) { put(KEY_DESCRIPTION, description); }
 
     public ParseFile getImage() {
         return getParseFile(KEY_IMAGE);
@@ -65,11 +62,11 @@ public class Event extends ParseObject {
         put(KEY_LOCATION, location);
     }
 
-    public Date gDate() {
+    public Date getEventDate() {
         return getDate(KEY_DATE);
     }
 
-    public void setDate(Date date) {
+    public void setEventDate(Date date) {
         put(KEY_DATE, date);
     }
 
