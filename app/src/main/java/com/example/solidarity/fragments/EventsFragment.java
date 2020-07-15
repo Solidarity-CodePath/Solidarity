@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -13,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.solidarity.Event;
+import com.example.solidarity.EventsAdapter;
 import com.example.solidarity.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,6 +28,9 @@ public class EventsFragment extends Fragment {
 
     public static final String TAG = "EventsFragment";
     private RecyclerView rvEvents;
+    private EventsAdapter adapter;
+    private List<Event> allEvents;
+;
 
 
     public EventsFragment() {
@@ -44,6 +50,12 @@ public class EventsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvEvents = view.findViewById(R.id.rvEvents);
+        allEvents = new ArrayList<>();
+        adapter = new EventsAdapter(getContext(), allEvents);
+
+        rvEvents.setAdapter(adapter);
+
+        rvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
 
         queryEvents();
     }
@@ -59,7 +71,12 @@ public class EventsFragment extends Fragment {
                     Log.e(TAG, "Issue with getting events", e);
                     return;
                 }
+<<<<<<< HEAD
 
+=======
+                allEvents.addAll(events);
+                adapter.notifyDataSetChanged();
+>>>>>>> created event timeline functionality
 
             }
         });
