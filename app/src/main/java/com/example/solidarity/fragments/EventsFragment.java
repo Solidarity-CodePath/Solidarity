@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.solidarity.EndlessRecyclerViewScrollListener;
 import com.example.solidarity.Event;
 import com.example.solidarity.EventsAdapter;
 import com.example.solidarity.R;
@@ -32,6 +33,7 @@ public class EventsFragment extends Fragment {
     private EventsAdapter adapter;
     private List<Event> allEvents;
     private SwipeRefreshLayout swipeContainer;
+    private EndlessRecyclerViewScrollListener scrollListener;
 
 
     public EventsFragment() {
@@ -68,15 +70,41 @@ public class EventsFragment extends Fragment {
         adapter = new EventsAdapter(getContext(), allEvents);
 
         rvEvents.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
-        rvEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+        rvEvents.setLayoutManager(linearLayoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                loadMoreEvents();
+            }
+        };
+        rvEvents.addOnScrollListener(scrollListener);
 
         queryEvents();
     }
 
+    private void loadMoreEvents() {
+        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+        query.include(Event.getParseKeyAuthor());
+
+        query.findInBackground(new FindCallback<Event>() {
+            @Override
+            public void done(List<Event> events, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting events", e);
+                    return;
+                }
+                adapter.addAll(events);
+            }
+        });
+
+    }
+
     private void queryEvents() {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.include(Event.getKeyAuthor());
+        query.include(Event.getParseKeyAuthor());
 
         query.findInBackground(new FindCallback<Event>() {
             @Override
