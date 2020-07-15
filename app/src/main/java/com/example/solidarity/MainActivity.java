@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         //Toast.makeText(MainActivity.this, "Profile!", Toast.LENGTH_SHORT).show();
                        //fragment = new ProfileFragment();
-                        fragment = new ComposeFragment();
+                        fragment = new ProfileFragment();
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
