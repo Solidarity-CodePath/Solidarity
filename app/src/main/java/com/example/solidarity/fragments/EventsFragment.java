@@ -20,11 +20,7 @@ import com.parse.ParseQuery;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the  factory method to
- * create an instance of this fragment.
- */
+
 public class EventsFragment extends Fragment {
 
     public static final String TAG = "EventsFragment";
@@ -54,7 +50,7 @@ public class EventsFragment extends Fragment {
 
     private void queryEvents() {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.include(Event.KEY_AUTHOR);
+        query.include(Event.getKeyAuthor());
 
         query.findInBackground(new FindCallback<Event>() {
             @Override
@@ -63,9 +59,7 @@ public class EventsFragment extends Fragment {
                     Log.e(TAG, "Issue with getting events", e);
                     return;
                 }
-                for (Event event: events) {
-                    Log.i(TAG, "Post: " + event.getDescription() + ", username:" + event.getAuthor().getUsername());
-                }
+
 
             }
         });

@@ -63,12 +63,11 @@ public class ComposeFragment extends Fragment {
 
 
     public ComposeFragment() {
-        // Required empty public constructor
+
     }
 
 
-    // The onCreateView method is called when Fragment should create its View object hierarchy,
-    // either dynamically or via XML layout inflation.
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,9 +75,7 @@ public class ComposeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_compose, container, false);
     }
 
-    // This event is triggered soon after onCreateView().
-    // onViewCreated() is only called if the view returned from onCreateView() is non-null.
-    // Any view setup should occur here.  E.g., view lookups and attaching view listeners.
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -141,21 +138,16 @@ public class ComposeFragment extends Fragment {
 
 
     private void launchCamera() {
-        // create Intent to take a picture and return control to the calling application
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Create a File reference for future access
+
         photoFile = getPhotoFileUri(photoFileName);
 
-        // wrap File object into a content provider
-        // required for API >= 24
-        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-            // Start the image capture intent to take photo
+
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
     }
@@ -165,29 +157,24 @@ public class ComposeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // by this point we have the camera photo on disk
+
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-                // RESIZE BITMAP, see section below
-                // Load the taken image into a preview
+
                 ivEventImage.setImageBitmap(takenImage);
-            } else { // Result was a failure
+            } else {
                 Toast.makeText(getContext(), "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
     private File getPhotoFileUri(String fileName) {
-        // Get safe storage directory for photos
-        // Use `getExternalFilesDir` on Context to access package-specific directories.
-        // This way, we don't need to request external read/write runtime permissions.
+
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
-        // Create the storage directory if it does not exist
         if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
             Log.d(TAG, "failed to create directory");
         }
 
-        // Return the file target for the photo based on filename
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
 
         return file;
@@ -206,7 +193,7 @@ public class ComposeFragment extends Fragment {
 
         file.saveInBackground(new SaveCallback() {
             public void done(ParseException e) {
-                // If successful add file to user and signUpInBackground
+
                 if(e != null) {
                     Log.e(TAG, "Error while saving parsefile", e);
                     Toast.makeText(getContext(), "Error while saving parsefile!", Toast.LENGTH_SHORT).show();
@@ -222,7 +209,6 @@ public class ComposeFragment extends Fragment {
                     Log.e(TAG, "Error while saving", e);
                     Toast.makeText(getContext(), "Error while saving!", Toast.LENGTH_SHORT).show();
                 }
-                Log.i(TAG, "Post save was successful!!");
                 etDescription.setText("");
                 etTitle.setText("");
                 etLocation.setText("");

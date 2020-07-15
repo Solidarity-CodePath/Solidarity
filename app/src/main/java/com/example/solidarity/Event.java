@@ -15,13 +15,13 @@ import java.util.Locale;
 @ParseClassName("Event")
 public class Event extends ParseObject {
 
-    public static final String KEY_DESCRIPTION = "description";
-    public static final String KEY_IMAGE = "image";
-    public static final String KEY_AUTHOR = "author";
-    public static final String KEY_CREATED_KEY = "createdAt";
-    public static final String KEY_TITLE = "title";
-    public static final String KEY_LOCATION = "location";
-    public static final String KEY_DATE = "date";
+    private static final String KEY_DESCRIPTION = "description";
+    private static final String KEY_IMAGE = "image";
+    private static final String KEY_AUTHOR = "author";
+    private static final String KEY_CREATED_KEY = "createdAt";
+    private static final String KEY_TITLE = "title";
+    private static final String KEY_LOCATION = "location";
+    private static final String KEY_DATE = "date";
 
 
     public String getDescription() {
@@ -70,6 +70,34 @@ public class Event extends ParseObject {
         put(KEY_DATE, date);
     }
 
+    public static String getKeyDescription() {
+        return KEY_DESCRIPTION;
+    }
+
+    public static String getKeyImage() {
+        return KEY_IMAGE;
+    }
+
+    public static String getKeyAuthor() {
+        return KEY_AUTHOR;
+    }
+
+    public static String getKeyCreatedKey() {
+        return KEY_CREATED_KEY;
+    }
+
+    public static String getKeyTitle() {
+        return KEY_TITLE;
+    }
+
+    public static String getKeyLocation() {
+        return KEY_LOCATION;
+    }
+
+    public static String getKeyDate() {
+        return KEY_DATE;
+    }
+
 
     public static String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
@@ -87,6 +115,8 @@ public class Event extends ParseObject {
 
         return relativeDate;
     }
+
+
 
 
 }
