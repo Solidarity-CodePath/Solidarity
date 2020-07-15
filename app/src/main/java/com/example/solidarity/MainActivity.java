@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.example.solidarity.fragments.ComposeFragment;
+import com.example.solidarity.fragments.EventsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_home:
                         //Toast.makeText(MainActivity.this, "Home!", Toast.LENGTH_SHORT).show();
                         //fragment = new PostsFragment();
-                        fragment = new ComposeFragment();
+                        fragment = new EventsFragment();
                         break;
                     case R.id.action_compose:
                         //Toast.makeText(MainActivity.this, "Compose!", Toast.LENGTH_SHORT).show();

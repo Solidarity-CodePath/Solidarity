@@ -70,6 +70,34 @@ public class Event extends ParseObject {
         put(KEY_DATE, date);
     }
 
+    public static String getKeyDescription() {
+        return KEY_DESCRIPTION;
+    }
+
+    public static String getKeyImage() {
+        return KEY_IMAGE;
+    }
+
+    public static String getKeyAuthor() {
+        return KEY_AUTHOR;
+    }
+
+    public static String getKeyCreatedKey() {
+        return KEY_CREATED_KEY;
+    }
+
+    public static String getKeyTitle() {
+        return KEY_TITLE;
+    }
+
+    public static String getKeyLocation() {
+        return KEY_LOCATION;
+    }
+
+    public static String getKeyDate() {
+        return KEY_DATE;
+    }
+
 
     public static String getRelativeTimeAgo(String rawJsonDate) {
         String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
@@ -87,6 +115,8 @@ public class Event extends ParseObject {
 
         return relativeDate;
     }
+
+
 
 
 }
