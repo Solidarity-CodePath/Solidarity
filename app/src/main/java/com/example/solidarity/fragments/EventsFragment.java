@@ -71,9 +71,10 @@ public class EventsFragment extends Fragment {
                     Log.e(TAG, "Issue with getting events", e);
                     return;
                 }
+
                 allEvents.addAll(events);
                 adapter.notifyDataSetChanged();
-
+                
 
             }
         });
