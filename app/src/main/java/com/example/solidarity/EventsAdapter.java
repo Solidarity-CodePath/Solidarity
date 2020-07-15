@@ -46,6 +46,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         return events.size();
     }
 
+    public void clear() {
+        events.clear();
+        notifyDataSetChanged();
+    }
+
+    public void addAll(List<Event> list) {
+        events.addAll(list);
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle;
