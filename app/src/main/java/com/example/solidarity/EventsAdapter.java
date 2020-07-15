@@ -22,6 +22,11 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     private Context context;
     private List<Event> events;
 
+    public EventsAdapter(Context context, List<Event> events) {
+        this.context = context;
+        this.events = events;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -70,7 +75,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
             ParseFile image = event.getImage();
             if (image != null) {
-                Glide.with(context).load(event.getImage().getUrl()).into(ivImage);
+                Glide.with(context).load(image.getUrl()).into(ivImage);
             }
 
         }
