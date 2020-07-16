@@ -18,7 +18,7 @@ public class Event extends ParseObject {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_AUTHOR = "author";
-    private static final String KEY_CREATED_KEY = "createdAt";
+    private static final String KEY_CREATED = "createdAt";
     private static final String KEY_TITLE = "title";
     private static final String KEY_LOCATION = "location";
     private static final String KEY_DATE = "date";
@@ -70,31 +70,31 @@ public class Event extends ParseObject {
         put(KEY_DATE, date);
     }
 
-    public static String getKeyDescription() {
+    public static String getParseKeyDescription() {
         return KEY_DESCRIPTION;
     }
 
-    public static String getKeyImage() {
+    public static String getParseKeyImage() {
         return KEY_IMAGE;
     }
 
-    public static String getKeyAuthor() {
+    public static String getParseKeyAuthor() {
         return KEY_AUTHOR;
     }
 
-    public static String getKeyCreatedKey() {
-        return KEY_CREATED_KEY;
+    public static String getParseKeyCreatedKey() {
+        return KEY_CREATED;
     }
 
-    public static String getKeyTitle() {
+    public static String getParseKeyTitle() {
         return KEY_TITLE;
     }
 
-    public static String getKeyLocation() {
+    public static String getParseKeyLocation() {
         return KEY_LOCATION;
     }
 
-    public static String getKeyDate() {
+    public static String getParseKeyDate() {
         return KEY_DATE;
     }
 
