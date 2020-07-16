@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ public class EventsFragment extends Fragment {
     private RecyclerView rvEvents;
     private EventsAdapter adapter;
     private List<Event> allEvents;
-;
+    private SwipeRefreshLayout swipeContainer;
 
 
     public EventsFragment() {
@@ -50,6 +51,19 @@ public class EventsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvEvents = view.findViewById(R.id.rvEvents);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                queryEvents();
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         allEvents = new ArrayList<>();
         adapter = new EventsAdapter(getContext(), allEvents);
 
@@ -71,10 +85,10 @@ public class EventsFragment extends Fragment {
                     Log.e(TAG, "Issue with getting events", e);
                     return;
                 }
+                adapter.clear();
+                adapter.addAll(events);
+                swipeContainer.setRefreshing(false);
 
-                allEvents.addAll(events);
-                adapter.notifyDataSetChanged();
-                
 
             }
         });
