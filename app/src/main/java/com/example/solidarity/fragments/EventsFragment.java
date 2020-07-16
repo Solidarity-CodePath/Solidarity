@@ -87,7 +87,7 @@ public class EventsFragment extends Fragment {
 
     private void loadMoreEvents() {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.include(Event.getParseKeyAuthor());
+        query.include(Event.KEY_AUTHOR);
 
         query.findInBackground(new FindCallback<Event>() {
             @Override
@@ -104,7 +104,7 @@ public class EventsFragment extends Fragment {
 
     protected void queryEvents() {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.include(Event.getParseKeyAuthor());
+        query.include(Event.KEY_AUTHOR);
 
         query.findInBackground(new FindCallback<Event>() {
             @Override

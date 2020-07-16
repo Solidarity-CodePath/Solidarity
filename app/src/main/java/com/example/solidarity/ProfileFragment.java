@@ -54,9 +54,9 @@ public class ProfileFragment extends EventsFragment {
     protected void queryEvents() {
         super.queryEvents();
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.include(Event.getParseKeyAuthor());
-        query.whereEqualTo(Event.getParseKeyAuthor(), ParseUser.getCurrentUser());
-        query.addDescendingOrder(Event.getParseKeyCreated());
+        query.include(Event.KEY_AUTHOR);
+        query.whereEqualTo(Event.KEY_AUTHOR, ParseUser.getCurrentUser());
+        query.addDescendingOrder(Event.KEY_CREATED);
 
         query.findInBackground(new FindCallback<Event>() {
             @Override
