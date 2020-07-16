@@ -1,11 +1,13 @@
 package com.example.solidarity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.parse.Parse;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -64,6 +68,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         private TextView tvDescription;
         private TextView tvLocation;
         private TextView tvDate;
+        private RelativeLayout container;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -74,9 +79,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvLocation = itemView.findViewById(R.id.tvLocation);
             tvDate = itemView.findViewById(R.id.tvDate);
+            container = itemView.findViewById(R.id.container);
         }
 
-        public void bind(Event event) {
+        public void bind(final Event event) {
             tvTitle.setText(event.getTitle());
             tvUsername.setText(event.getAuthor().getUsername());
             tvDescription.setText(event.getDescription());
@@ -87,6 +93,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, EventDetailsActivity.class);
+                    intent.putExtra(Event.class.getSimpleName(), Parcels.wrap(event));
+                    context.startActivity(intent);
+
+                }
+            });
 
         }
     }
