@@ -88,7 +88,7 @@ public class ProfileFragment extends EventsFragment {
                 profImage.setImageBitmap(bitmap);
                 photoFile = new File(selectedImage.getPath());
                 currentUser = ParseUser.getCurrentUser();
-                
+
                 //saveUser(currentUser, photoFile);
 
             } catch (FileNotFoundException e) {
