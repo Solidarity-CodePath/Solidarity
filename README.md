@@ -172,3 +172,6 @@ https://www.figma.com/file/XDFOlDlKKRyigvKtOwTFcU/Solidarity?node-id=0%3A1
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
 
+##Building
+
+
