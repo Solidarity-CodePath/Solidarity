@@ -172,6 +172,19 @@ https://www.figma.com/file/XDFOlDlKKRyigvKtOwTFcU/Solidarity?node-id=0%3A1
 - [Create basic snippets for each Parse network request]
 - [OPTIONAL: List endpoints if using existing API such as Yelp]
 
-##Building
+## Building
+- git clone https://github.com/Solidarity-CodePath/Solidarity.git
+- In AndroidStudio, File --> Open Solidarity 
+# To Run on Emulator (if haven't downloaded already):
+- Go to Tools -> AVD Manager. Select Create Virtual Device to add new virtual device
+- Select Pixel 3 as device --> Next
+- Under Recommended tab, select API 29 and click the Download Link
+- Click Finish
+- In Tools --> AVD Manager, click green play button in Actions section to run emulator for first time
+- For OS-X machines, make sure to go to System Preferences -> Security & Privacy and click Allow button if system software from “Intel Corporation Apps” is shown.
+- When running the app, it should now run on the emulator!
+Sources:
+https://developer.android.com/studio/run/emulator
+https://guides.codepath.org/android/Running-Apps-on-Your-Device
 
 
