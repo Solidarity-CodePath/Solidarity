@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EventDetailsActivity"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:id="@+id/tvTitleDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:text="title" />
+
+    <ImageView
+        android:id="@+id/ivImageDetails"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/tvTitleDetails"
+        tools:srcCompat="@tools:sample/avatars" />
+
+
+    <TextView
+        android:id="@+id/tvUsernameDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ivImageDetails"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        tools:text="shreya" />
+
+    <TextView
+        android:id="@+id/tvDescriptionDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvUsernameDetails"
+        tools:text="Event description" />
+
+    <TextView
+        android:id="@+id/tvLocationDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDescriptionDetails"
+        tools:text="1 Hacker Way" />
+
+    <TextView
+        android:id="@+id/tvDateDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLocationDetails"
+        tools:text="August 14, 2020" />
+
+
+
+</RelativeLayout>

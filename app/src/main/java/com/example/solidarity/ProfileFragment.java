@@ -17,6 +17,7 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
+
 public class ProfileFragment extends EventsFragment {
 
     public static final String TAG = "ProfileFragment";
