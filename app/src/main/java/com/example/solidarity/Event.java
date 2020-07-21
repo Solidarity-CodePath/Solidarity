@@ -15,13 +15,13 @@ import java.util.Locale;
 @ParseClassName("Event")
 public class Event extends ParseObject {
 
-    private static final String KEY_DESCRIPTION = "description";
-    private static final String KEY_IMAGE = "image";
-    private static final String KEY_AUTHOR = "author";
-    private static final String KEY_CREATED = "createdAt";
-    private static final String KEY_TITLE = "title";
-    private static final String KEY_LOCATION = "location";
-    private static final String KEY_DATE = "date";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_IMAGE = "image";
+    public static final String KEY_AUTHOR = "author";
+    public static final String KEY_CREATED = "createdAt";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_LOCATION = "location";
+    public static final String KEY_DATE = "date";
 
 
     public String getDescription() {
@@ -68,34 +68,6 @@ public class Event extends ParseObject {
 
     public void setEventDate(Date date) {
         put(KEY_DATE, date);
-    }
-
-    public static String getParseKeyDescription() {
-        return KEY_DESCRIPTION;
-    }
-
-    public static String getParseKeyImage() {
-        return KEY_IMAGE;
-    }
-
-    public static String getParseKeyAuthor() {
-        return KEY_AUTHOR;
-    }
-
-    public static String getParseKeyCreated() {
-        return KEY_CREATED;
-    }
-
-    public static String getParseKeyTitle() {
-        return KEY_TITLE;
-    }
-
-    public static String getParseKeyLocation() {
-        return KEY_LOCATION;
-    }
-
-    public static String getParseKeyDate() {
-        return KEY_DATE;
     }
 
 
