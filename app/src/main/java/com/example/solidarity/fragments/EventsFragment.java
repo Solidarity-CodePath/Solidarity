@@ -30,8 +30,8 @@ public class EventsFragment extends Fragment {
 
     public static final String TAG = "EventsFragment";
     private RecyclerView rvEvents;
-    private EventsAdapter adapter;
-    private List<Event> allEvents;
+    protected EventsAdapter adapter;
+    protected List<Event> allEvents;
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
 
@@ -102,7 +102,7 @@ public class EventsFragment extends Fragment {
 
     }
 
-    private void queryEvents() {
+    protected void queryEvents() {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.include(Event.getParseKeyAuthor());
 

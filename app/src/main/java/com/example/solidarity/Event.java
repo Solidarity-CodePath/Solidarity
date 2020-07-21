@@ -82,7 +82,7 @@ public class Event extends ParseObject {
         return KEY_AUTHOR;
     }
 
-    public static String getParseKeyCreatedKey() {
+    public static String getParseKeyCreated() {
         return KEY_CREATED;
     }
 
