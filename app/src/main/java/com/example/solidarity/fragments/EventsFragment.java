@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
+import com.example.solidarity.BuildConfig;
 import com.example.solidarity.EndlessRecyclerViewScrollListener;
 import com.example.solidarity.Event;
 import com.example.solidarity.EventsAdapter;
@@ -41,6 +42,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 import okhttp3.Headers;
@@ -64,6 +66,7 @@ public class EventsFragment extends Fragment {
 
     String latitude ="";
     String longitude= "";
+    public static String API_KEY;
 
     public EventsFragment() {
 
@@ -83,6 +86,7 @@ public class EventsFragment extends Fragment {
         rvEvents = view.findViewById(R.id.rvEvents);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
 
+        API_KEY = getString(R.string.gmaps_apikey);
 
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -175,7 +179,7 @@ public class EventsFragment extends Fragment {
                         final ArrayList<Integer> distances, final Event event) {
         String URL_4 = "https://maps.googleapis.com/maps/api/distancematrix/json?uni" +
                 "ts=imperial&origins=" + fromLat + "," + fromLong + "&destinations=" +
-                toAddress + "&key=AIzaSyCeI6luFfONrF0uzgb6YE68es1wnnOEmjE";
+                toAddress + "&key=" + API_KEY;
         client.get(URL_4, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JsonHttpResponseHandler.JSON json) {
