@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +39,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -55,6 +58,10 @@ public class ProfileFragment extends EventsFragment {
     File photoFile;
     ParseUser currentUser;
 
+    private EndlessRecyclerViewScrollListener scrollListener;
+    private RecyclerView rvEvents;
+    protected EventsAdapter adapter;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,9 +75,8 @@ public class ProfileFragment extends EventsFragment {
         FrameLayout flayout = view.findViewById(R.id.fLayout);
         profImage = view.findViewById(R.id.ivProfileImage);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-        /**profImage = new CircleImageView(getContext());
-        profImage.setImageResource(R.drawable.camera);
-        flayout.addView(profImage, 300, 300);*/
+        rvEvents = view.findViewById(R.id.rvEvents);
+
         flayout.removeView(view.findViewById(R.id.tvIntro));
 
         profImage.setOnLongClickListener(new View.OnLongClickListener() {
@@ -89,6 +95,21 @@ public class ProfileFragment extends EventsFragment {
         } else {
             profImage.setBackgroundResource(R.drawable.camera);
         }
+
+        allEvents = new ArrayList<>();
+        adapter = new EventsAdapter(getContext(), allEvents);
+        rvEvents.setAdapter(adapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+
+        rvEvents.setLayoutManager(linearLayoutManager);
+
+        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+            }
+        };
+        rvEvents.addOnScrollListener(scrollListener);
+
 
         queryEvents();
     }
@@ -113,16 +134,13 @@ public class ProfileFragment extends EventsFragment {
                 fos.write(bitmapdata);
                 fos.flush();
                 fos.close();
-                //photoFile = new File(selectedImage.getPath());
 
                 saveUser(currentUser, photoFile);
 
             } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
                 Log.e(TAG, "File not found!");
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 Log.e(TAG, "IOException!");
             }
@@ -165,10 +183,10 @@ public class ProfileFragment extends EventsFragment {
                     Log.e(TAG, "Issue with getting events", e);
                     return;
                 }
+                adapter.clear();
                 allEvents.addAll(events);
                 adapter.notifyDataSetChanged();
                 swipeContainer.setRefreshing(false);
-
 
             }
         });
