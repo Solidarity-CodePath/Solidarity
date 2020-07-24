@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.solidarity.BuildConfig;
+import com.example.solidarity.DistanceMatrix;
 import com.example.solidarity.EndlessRecyclerViewScrollListener;
 import com.example.solidarity.Event;
 import com.example.solidarity.EventsAdapter;
@@ -123,6 +124,7 @@ public class EventsFragment extends Fragment {
             ActivityCompat.requestPermissions((Activity) getContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
             return;
         }
+
         Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if (locationGPS != null) {
             double lat = locationGPS.getLatitude();
@@ -177,31 +179,16 @@ public class EventsFragment extends Fragment {
 
     public void getDist(String fromLat, String fromLong, String toAddress,
                         final ArrayList<Integer> distances, final Event event) {
-        String URL_4 = "https://maps.googleapis.com/maps/api/distancematrix/json?uni" +
-                "ts=imperial&origins=" + fromLat + "," + fromLong + "&destinations=" +
-                toAddress + "&key=" + API_KEY;
-        client.get(URL_4, new JsonHttpResponseHandler() {
+        String api_url = String.format("https://maps.googleapis.com/maps/api/distancematrix/json?uni" +
+                "ts=imperial&origins=%s,%s&destinations=%s&key=%s", fromLat, fromLong, toAddress, API_KEY);
+        client.get(api_url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JsonHttpResponseHandler.JSON json) {
                 JSONObject jsonObject = json.jsonObject;
                 try {
-                    JSONArray dist = (JSONArray) jsonObject.get("rows");
-                    JSONObject obj2 = (JSONObject) dist.get(0);
-                    JSONArray disting = (JSONArray) obj2.get("elements");
-                    JSONObject obj3 = (JSONObject) disting.get(0);
-                    JSONObject obj4 = (JSONObject) obj3.get("distance");
-                    String distance = (String) obj4.get("text");
-                    if (distance.contains(".")) {
-                        distance = distance.substring(0, distance.indexOf("."));
-                    }
-                    distance = distance.replaceAll(",", "");
-                    int dis = 0;
-                    if (distance.contains(" ")) {
-                        dis = Integer.valueOf(distance.substring(0, distance.indexOf(" ")));
-                    } else {
-                        dis = Integer.valueOf(distance);
-                    }
-                    if (dis <= 60) {
+                    DistanceMatrix distanceMatrix = new DistanceMatrix(jsonObject);
+                    int distance = distanceMatrix.getDistance();
+                    if (distance <= 60) {
                         adapter.addEvent(event);
                         adapter.notifyDataSetChanged();
                     }
