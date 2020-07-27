@@ -60,6 +60,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public void addEvent(Event event) {
+        events.add(event);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvTitle;
