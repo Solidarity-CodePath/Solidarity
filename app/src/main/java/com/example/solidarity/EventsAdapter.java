@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -72,7 +73,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         private TextView tvDescription;
         private TextView tvLocation;
         private TextView tvDate;
-        private RelativeLayout container;
+        private CardView container;
 
 
         public ViewHolder(@NonNull View itemView) {

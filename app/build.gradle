@@ -10,6 +10,7 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -47,6 +48,12 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
 
     implementation 'com.codepath.libraries:asynchttpclient:0.0.9'
+    implementation "androidx.recyclerview:recyclerview:${recyclerViewVersion}"
+    implementation "androidx.percentlayout:percentlayout:1.0.0"
+    implementation "androidx.vectordrawable:vectordrawable:1.0.0" // VectorDrawableCompat
+    implementation "androidx.vectordrawable:vectordrawable-animated:1.0.0" // AnimatedVectorDrawableCompat
+    implementation "androidx.transition:transition:1.1.0"
+    implementation "androidx.annotation:annotation:1.1.0"
 
 
 
