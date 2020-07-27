@@ -27,19 +27,21 @@ tools:context=".LoginActivity">
     android:layout_below="@id/etUsername"
     android:inputType="textPassword" />
 
-<Button
-    android:id="@+id/btLogin"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Login"
-    android:layout_below="@id/etPassword"/>
+    <Button
+        android:id="@+id/btLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPassword"
+        android:background="#FFD1D1"
+        android:text="Login" />
 
-<Button
-    android:id="@+id/btnSignup"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/btLogin"
-    android:layout_marginTop="2dp"
-    android:text="Sign Up" />
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btLogin"
+        android:layout_marginTop="2dp"
+        android:backgroundTint="#FFD1D1"
+        android:text="Sign Up" />
 
 </RelativeLayout>

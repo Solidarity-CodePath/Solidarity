@@ -81,7 +81,9 @@ public class EventDetailsActivity extends AppCompatActivity {
         } else {
             currGoing = event.getGoingList().size();
             goingList = event.getGoingList();
-            btnGoing.setBackgroundResource(R.drawable.check_filled);
+            if (goingList.contains(currentUser.getObjectId())) {
+                btnGoing.setBackgroundResource(R.drawable.check_filled);
+            }
         }
         tvGoing.setText(String.valueOf(currGoing) + " going");
 
@@ -126,24 +128,24 @@ public class EventDetailsActivity extends AppCompatActivity {
                     event.setGoingList(goingList);
                     event.saveInBackground();
                     currGoing += 1;
-                    tvLikes.setText(String.valueOf(currGoing) + " likes");
+                    tvLikes.setText(String.valueOf(currGoing) + " going");
                     btnGoing.setBackgroundResource(R.drawable.check_filled);
                 }
 
                 else if (!goingList.contains(currentUser.getObjectId())) {
                     goingList.add(currentUser.getObjectId());
-                    event.setLikes(goingList);
+                    event.setGoingList(goingList);
                     event.saveInBackground();
                     currGoing += 1;
-                    tvGoing.setText(String.valueOf(currGoing) + " likes");
+                    tvGoing.setText(String.valueOf(currGoing) + " going");
                     btnGoing.setBackgroundResource(R.drawable.check_filled);
                 }
                 else {
                     goingList.remove(currentUser.getObjectId());
-                    event.setLikes(goingList);
+                    event.setGoingList(goingList);
                     event.saveInBackground();
                     currGoing -= 1;
-                    tvGoing.setText(String.valueOf(currLikes) + " likes");
+                    tvGoing.setText(String.valueOf(currGoing) + " going");
                     btnGoing.setBackgroundResource(R.drawable.correct);
                 }
             }

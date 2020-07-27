@@ -21,7 +21,9 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.solidarity.fragments.EventsFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -30,8 +32,10 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
@@ -44,6 +48,8 @@ public class ProfileFragment extends EventsFragment {
     public static final String TAG = "ProfileFragment";
     public static final int GET_FROM_GALLERY = 3;
     CircleImageView profImage;
+    private SwipeRefreshLayout swipeContainer;
+
 
     public String photoFileName = "photo.jpg";
     File photoFile;
@@ -53,7 +59,6 @@ public class ProfileFragment extends EventsFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        queryEvents();
     }
 
 
@@ -61,9 +66,12 @@ public class ProfileFragment extends EventsFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         FrameLayout flayout = view.findViewById(R.id.fLayout);
-        profImage = new CircleImageView(getContext());
+        profImage = view.findViewById(R.id.ivProfileImage);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        /**profImage = new CircleImageView(getContext());
         profImage.setImageResource(R.drawable.camera);
-        flayout.addView(profImage, 300, 300);
+        flayout.addView(profImage, 300, 300);*/
+        flayout.removeView(view.findViewById(R.id.tvIntro));
 
         profImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -74,6 +82,15 @@ public class ProfileFragment extends EventsFragment {
             }
         });
 
+        currentUser = ParseUser.getCurrentUser();
+        ParseFile pImage = currentUser.getParseFile("profileImage");
+        if (pImage != null) {
+            Glide.with(getContext()).load(pImage.getUrl()).into(profImage);
+        } else {
+            profImage.setBackgroundResource(R.drawable.camera);
+        }
+
+        queryEvents();
     }
 
     @Override
@@ -85,11 +102,20 @@ public class ProfileFragment extends EventsFragment {
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                profImage.setBackgroundResource(0);
                 profImage.setImageBitmap(bitmap);
-                photoFile = new File(selectedImage.getPath());
-                currentUser = ParseUser.getCurrentUser();
+                photoFile = new File(getContext().getCacheDir(), "profileImage");
+                photoFile.createNewFile();
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 0 /*ignored for PNG*/, bos);
+                byte[] bitmapdata = bos.toByteArray();
+                FileOutputStream fos = new FileOutputStream(photoFile);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+                //photoFile = new File(selectedImage.getPath());
 
-                //saveUser(currentUser, photoFile);
+                saveUser(currentUser, photoFile);
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -127,7 +153,6 @@ public class ProfileFragment extends EventsFragment {
 
     @Override
     protected void queryEvents() {
-        super.queryEvents();
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.include(Event.KEY_AUTHOR);
         query.whereEqualTo(Event.KEY_AUTHOR, ParseUser.getCurrentUser());
@@ -142,6 +167,7 @@ public class ProfileFragment extends EventsFragment {
                 }
                 allEvents.addAll(events);
                 adapter.notifyDataSetChanged();
+                swipeContainer.setRefreshing(false);
 
 
             }

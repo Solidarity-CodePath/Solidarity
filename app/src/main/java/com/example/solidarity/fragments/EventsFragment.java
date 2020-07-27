@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.example.solidarity.EndlessRecyclerViewScrollListener;
 import com.example.solidarity.Event;
@@ -21,6 +23,8 @@ import com.example.solidarity.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +38,7 @@ public class EventsFragment extends Fragment {
     protected List<Event> allEvents;
     private SwipeRefreshLayout swipeContainer;
     private EndlessRecyclerViewScrollListener scrollListener;
+
 
 
     public EventsFragment() {
@@ -54,6 +59,8 @@ public class EventsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvEvents = view.findViewById(R.id.rvEvents);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+
+
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
