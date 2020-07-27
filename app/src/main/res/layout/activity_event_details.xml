@@ -52,6 +52,45 @@
         android:layout_below="@+id/tvLocationDetails"
         tools:text="August 14, 2020" />
 
+    <Button
+        android:id="@+id/btnLike"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tvDateDetails"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/like_empty" />
+
+    <Button
+        android:id="@+id/btnGoing"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tvDateDetails"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toStartOf="@+id/tvGoing"
+        android:background="@drawable/correct" />
+
+    <TextView
+        android:id="@+id/tvLikes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDateDetails"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/btnLike"
+        tools:text="Likes" />
+
+    <TextView
+        android:id="@+id/tvGoing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvDateDetails"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="5dp"
+        tools:text="Going" />
 
 
 </RelativeLayout>

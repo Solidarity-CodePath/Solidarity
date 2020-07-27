@@ -9,6 +9,7 @@ import com.parse.ParseUser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -22,6 +23,8 @@ public class Event extends ParseObject {
     public static final String KEY_TITLE = "title";
     public static final String KEY_LOCATION = "location";
     public static final String KEY_DATE = "date";
+    public static final String KEY_USER_LIKES = "UserLikes";
+    public static final String KEY_USER_GOING = "goingList";
 
 
     public String getDescription() {
@@ -69,6 +72,14 @@ public class Event extends ParseObject {
     public void setEventDate(Date date) {
         put(KEY_DATE, date);
     }
+
+    public void setLikes(ArrayList<String> UserLikes) { put(KEY_USER_LIKES,UserLikes); }
+
+    public ArrayList<String> getUserLikes() { return (ArrayList<String>) get(KEY_USER_LIKES); }
+
+    public void setGoingList(ArrayList<String> UserLikes) { put(KEY_USER_GOING,UserLikes); }
+
+    public ArrayList<String> getGoingList() { return (ArrayList<String>) get(KEY_USER_GOING); }
 
 
     public static String getRelativeTimeAgo(String rawJsonDate) {
