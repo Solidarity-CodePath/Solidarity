@@ -3,6 +3,7 @@ package com.example.solidarity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,6 +84,70 @@ public class EventDetailsActivity extends AppCompatActivity {
             btnGoing.setBackgroundResource(R.drawable.check_filled);
         }
         tvGoing.setText(String.valueOf(currGoing) + " going");
+
+        btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (UserLikes == null) {
+                    UserLikes = new ArrayList<>();
+                    UserLikes.add(currentUser.getObjectId());
+                    event.setLikes(UserLikes);
+                    event.saveInBackground();
+                    currLikes += 1;
+                    tvLikes.setText(String.valueOf(currLikes) + " likes");
+                    btnLike.setBackgroundResource(R.drawable.like);
+                }
+
+                else if (!UserLikes.contains(currentUser.getObjectId())) {
+                    UserLikes.add(currentUser.getObjectId());
+                    event.setLikes(UserLikes);
+                    event.saveInBackground();
+                    currLikes += 1;
+                    tvLikes.setText(String.valueOf(currLikes) + " likes");
+                    btnLike.setBackgroundResource(R.drawable.like);
+                }
+                else {
+                    UserLikes.remove(currentUser.getObjectId());
+                    event.setLikes(UserLikes);
+                    event.saveInBackground();
+                    currLikes -= 1;
+                    tvLikes.setText(String.valueOf(currLikes) + " likes");
+                    btnLike.setBackgroundResource(R.drawable.like_empty);
+                }
+            }
+        });
+
+        btnGoing.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (goingList == null) {
+                    goingList = new ArrayList<>();
+                    goingList.add(currentUser.getObjectId());
+                    event.setGoingList(goingList);
+                    event.saveInBackground();
+                    currGoing += 1;
+                    tvLikes.setText(String.valueOf(currGoing) + " likes");
+                    btnGoing.setBackgroundResource(R.drawable.check_filled);
+                }
+
+                else if (!goingList.contains(currentUser.getObjectId())) {
+                    goingList.add(currentUser.getObjectId());
+                    event.setLikes(goingList);
+                    event.saveInBackground();
+                    currGoing += 1;
+                    tvGoing.setText(String.valueOf(currGoing) + " likes");
+                    btnGoing.setBackgroundResource(R.drawable.check_filled);
+                }
+                else {
+                    goingList.remove(currentUser.getObjectId());
+                    event.setLikes(goingList);
+                    event.saveInBackground();
+                    currGoing -= 1;
+                    tvGoing.setText(String.valueOf(currLikes) + " likes");
+                    btnGoing.setBackgroundResource(R.drawable.correct);
+                }
+            }
+        });
 
     }
 }
