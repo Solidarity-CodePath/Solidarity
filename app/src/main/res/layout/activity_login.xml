@@ -28,7 +28,7 @@ tools:context=".LoginActivity">
     android:inputType="textPassword" />
 
     <Button
-        android:id="@+id/btLogin"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etPassword"
@@ -36,12 +36,20 @@ tools:context=".LoginActivity">
         android:text="Login" />
 
     <Button
-        android:id="@+id/btnSignup"
+        android:id="@+id/btnSignupPage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btLogin"
+        android:layout_below="@+id/btnLogin"
         android:layout_marginTop="2dp"
         android:backgroundTint="#FFD1D1"
         android:text="Sign Up" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnSignupPage"
+        android:layout_marginTop="2dp"
+        android:text="Don't have an account? Click to sign up!" />
 
 </RelativeLayout>
