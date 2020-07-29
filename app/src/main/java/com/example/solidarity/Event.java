@@ -14,7 +14,7 @@ import java.util.Date;
 import java.util.Locale;
 
 @ParseClassName("Event")
-public class Event extends ParseObject {
+public class Event extends ParseObject implements Comparable<Event> {
 
     public static final String KEY_DESCRIPTION = "description";
     public static final String KEY_IMAGE = "image";
@@ -77,9 +77,23 @@ public class Event extends ParseObject {
 
     public ArrayList<String> getUserLikes() { return (ArrayList<String>) get(KEY_USER_LIKES); }
 
+    public int getNumLikes() {
+        if (getUserLikes() == null) {
+            return 0;
+        }
+        return getUserLikes().size();
+    }
+
     public void setGoingList(ArrayList<String> UserLikes) { put(KEY_USER_GOING,UserLikes); }
 
     public ArrayList<String> getGoingList() { return (ArrayList<String>) get(KEY_USER_GOING); }
+
+    public int getNumGoing() {
+        if (getGoingList() == null) {
+            return 0;
+        }
+        return getGoingList().size();
+    }
 
 
     public static String getRelativeTimeAgo(String rawJsonDate) {
@@ -100,6 +114,12 @@ public class Event extends ParseObject {
     }
 
 
-
-
+    @Override
+    public int compareTo(Event event) {
+        System.out.println(this.getTitle() + "," + event.getTitle());
+        System.out.println((this.getNumLikes() + this.getNumGoing() * 2) -
+                (event.getNumLikes() + event.getNumGoing() * 2));
+        return (this.getNumLikes() + this.getNumGoing() * 2) -
+                (event.getNumLikes() + event.getNumGoing() * 2);
+    }
 }
