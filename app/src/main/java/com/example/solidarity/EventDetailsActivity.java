@@ -2,6 +2,7 @@ package com.example.solidarity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -128,7 +129,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     event.setGoingList(goingList);
                     event.saveInBackground();
                     currGoing += 1;
-                    tvLikes.setText(String.valueOf(currGoing) + " going");
+                    tvGoing.setText(String.valueOf(currGoing) + " going");
                     btnGoing.setBackgroundResource(R.drawable.check_filled);
                 }
 
@@ -151,5 +152,14 @@ public class EventDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
+        super.onBackPressed();
     }
 }

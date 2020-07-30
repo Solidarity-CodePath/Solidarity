@@ -116,9 +116,6 @@ public class Event extends ParseObject implements Comparable<Event> {
 
     @Override
     public int compareTo(Event event) {
-        System.out.println(this.getTitle() + "," + event.getTitle());
-        System.out.println((this.getNumLikes() + this.getNumGoing() * 2) -
-                (event.getNumLikes() + event.getNumGoing() * 2));
         return (this.getNumLikes() + this.getNumGoing() * 2) -
                 (event.getNumLikes() + event.getNumGoing() * 2);
     }

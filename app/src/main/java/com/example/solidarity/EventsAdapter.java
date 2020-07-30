@@ -1,5 +1,6 @@
 package com.example.solidarity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
@@ -12,26 +13,31 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.solidarity.fragments.EventsFragment;
 import com.parse.Parse;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
+
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
 
+    private final int REQUEST_CODE = 20;
     private Context context;
     private List<Event> events;
+    private Fragment fragment;
 
-    public EventsAdapter(Context context, List<Event> events) {
+    public EventsAdapter(Context context, List<Event> events, Fragment fragment) {
         this.context = context;
         this.events = events;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -66,6 +72,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     public void addEvent(Event event) {
         events.add(event);
     }
+
+
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -106,11 +114,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                 public void onClick(View view) {
                     Intent intent = new Intent(context, EventDetailsActivity.class);
                     intent.putExtra(Event.class.getSimpleName(), Parcels.wrap(event));
-                    context.startActivity(intent);
 
+                    fragment.startActivityForResult(intent, REQUEST_CODE);
                 }
             });
 
         }
+
+
     }
+
+
 }
