@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_margin="16dp"
-android:orientation="vertical"
-tools:context=".LoginActivity">
-
-
-<EditText
-    android:id="@+id/etUsername"
-    android:layout_width="match_parent"
-    android:layout_height="38dp"
-    android:layout_marginTop="7dp"
-    android:ems="1"
-    android:hint="username" />
-
-<EditText
-    android:id="@+id/etPassword"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:ems="10"
-    android:hint="password"
-    android:layout_below="@id/etUsername"
-    android:inputType="textPassword" />
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
+
+    <ImageView
+        android:id="@+id/ivIntroLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        app:srcCompat="@drawable/slogo" />
+
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_below="@+id/ivIntroLogo"
+        android:layout_marginTop="7dp"
+        android:ems="1"
+        android:hint="username" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etUsername"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -51,5 +63,6 @@ tools:context=".LoginActivity">
         android:layout_below="@+id/btnSignupPage"
         android:layout_marginTop="2dp"
         android:text="Don't have an account? Click to sign up!" />
+
 
 </RelativeLayout>

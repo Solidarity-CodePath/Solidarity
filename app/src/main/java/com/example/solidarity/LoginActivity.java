@@ -1,13 +1,20 @@
 package com.example.solidarity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -22,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private Button btnSignupPage;
+    private ImageView ivIntroLogo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,25 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnSignupPage = findViewById(R.id.btnSignupPage);
+        ivIntroLogo = findViewById(R.id.ivIntroLogo);
+        ivIntroLogo.setVisibility(View.INVISIBLE);
+
+        ivIntroLogo.post(new Runnable() {
+            @Override
+            public void run() {
+                final View logo = ivIntroLogo;
+                int cx = logo.getMeasuredWidth() / 2;
+                int cy = logo.getMeasuredHeight() / 2;
+                int finalRadius = Math.max(logo.getWidth(), logo.getHeight()) / 2;
+                Animator anim =
+                        ViewAnimationUtils.createCircularReveal(logo, cx, cy, 0, finalRadius);
+                anim.setDuration(1000);
+                logo.setVisibility(View.VISIBLE);
+
+                anim.start();
+
+            }
+        });
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +82,6 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(intent);
             }
         });
-
 
     }
 
