@@ -5,12 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,7 +25,6 @@ import android.view.ViewGroup;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
-import com.example.solidarity.BuildConfig;
 import com.example.solidarity.DistanceMatrix;
 import com.example.solidarity.EndlessRecyclerViewScrollListener;
 import com.example.solidarity.Event;
@@ -42,8 +42,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
-import java.util.ResourceBundle;
 
 
 import okhttp3.Headers;
@@ -63,7 +64,6 @@ public class EventsFragment extends Fragment {
 
     private static final int REQUEST_LOCATION = 1;
 
-    private ArrayList<Integer> distances;
 
     String latitude ="";
     String longitude= "";
@@ -144,15 +144,16 @@ public class EventsFragment extends Fragment {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.include(Event.KEY_AUTHOR);
         query.findInBackground(new FindCallback<Event>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void done(List<Event> events, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Issue with getting events", e);
                     return;
                 }
-                for (Event ev: events) {
-                    getDist(latitude, longitude, ev.getLocation(), distances, ev);
-                }
+                ArrayList<Event> sortedEvents = (ArrayList<Event>) sortEvents((ArrayList<Event>) events);
+
+                getDist(latitude, longitude, sortedEvents);
             }
         });
     }
@@ -160,8 +161,8 @@ public class EventsFragment extends Fragment {
     protected void queryEvents() {
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.include(Event.KEY_AUTHOR);
-        distances = new ArrayList<>();
         query.findInBackground(new FindCallback<Event>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void done(List<Event> events, ParseException e) {
                 if (e != null) {
@@ -169,28 +170,44 @@ public class EventsFragment extends Fragment {
                     return;
                 }
                 adapter.clear();
-                for (Event ev: events) {
-                    getDist(latitude, longitude, ev.getLocation(), distances, ev);
-                }
+                ArrayList<Event> sortedEvents = (ArrayList<Event>) sortEvents((ArrayList<Event>) events);
+
+                getDist(latitude, longitude, sortedEvents);
                 swipeContainer.setRefreshing(false);
             }
         });
     }
 
-    public void getDist(String fromLat, String fromLong, String toAddress,
-                        final ArrayList<Integer> distances, final Event event) {
+    public List<Event> sortEvents(ArrayList<Event> events) {
+        // sort events based on their popularity values and return
+        ArrayList<Integer> popularityList = new ArrayList<>();
+        ArrayList<String> namesInit = new ArrayList<>();
+        Collections.sort(events, Collections.<Event>reverseOrder());
+        return events;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void getDist(String fromLat, String fromLong, final ArrayList<Event> events) {
+        ArrayList<String> locations = new ArrayList<>();
+        for (Event ev: events) {
+            locations.add(ev.getLocation());
+        }
+        String locationsJoined = String.join("|", locations);
         String api_url = String.format("https://maps.googleapis.com/maps/api/distancematrix/json?uni" +
-                "ts=imperial&origins=%s,%s&destinations=%s&key=%s", fromLat, fromLong, toAddress, API_KEY);
+                "ts=imperial&origins=%s,%s&destinations=%s&key=%s", fromLat, fromLong, locationsJoined, API_KEY);
         client.get(api_url, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JsonHttpResponseHandler.JSON json) {
                 JSONObject jsonObject = json.jsonObject;
                 try {
-                    DistanceMatrix distanceMatrix = new DistanceMatrix(jsonObject);
-                    int distance = distanceMatrix.getDistance();
-                    if (distance <= 60) {
-                        adapter.addEvent(event);
-                        adapter.notifyDataSetChanged();
+                    JSONArray jsonArray = DistanceMatrix.getJsonArray(jsonObject);
+                    List<DistanceMatrix> distanceMatrices = DistanceMatrix.fromJsonArray(jsonArray);
+
+                    for (int i = 0; i < distanceMatrices.size(); i++) {
+                        if (distanceMatrices.get(i).getDistance() < 60) {
+                            adapter.addEvent(events.get(i));
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 } catch (JSONException e) {
                     Log.e("TAG", "JsonObject Exception");

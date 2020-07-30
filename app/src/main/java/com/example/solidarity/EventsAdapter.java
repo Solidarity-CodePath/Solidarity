@@ -20,6 +20,8 @@ import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> {
