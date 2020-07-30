@@ -97,7 +97,7 @@ public class ProfileFragment extends EventsFragment {
         }
 
         allEvents = new ArrayList<>();
-        adapter = new EventsAdapter(getContext(), allEvents);
+        adapter = new EventsAdapter(getContext(), allEvents, this);
         rvEvents.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 

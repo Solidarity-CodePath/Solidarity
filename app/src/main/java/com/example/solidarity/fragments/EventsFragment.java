@@ -3,6 +3,7 @@ package com.example.solidarity.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -29,6 +30,7 @@ import com.example.solidarity.DistanceMatrix;
 import com.example.solidarity.EndlessRecyclerViewScrollListener;
 import com.example.solidarity.Event;
 import com.example.solidarity.EventsAdapter;
+import com.example.solidarity.ProfileFragment;
 import com.example.solidarity.R;
 
 import com.parse.FindCallback;
@@ -49,6 +51,8 @@ import java.util.List;
 
 import okhttp3.Headers;
 
+import static android.app.Activity.RESULT_OK;
+
 
 public class EventsFragment extends Fragment {
 
@@ -63,6 +67,7 @@ public class EventsFragment extends Fragment {
     AsyncHttpClient client;
 
     private static final int REQUEST_LOCATION = 1;
+    private final int REQUEST_CODE = 20;
 
 
     String latitude ="";
@@ -102,7 +107,7 @@ public class EventsFragment extends Fragment {
                 android.R.color.holo_red_light);
 
         allEvents = new ArrayList<>();
-        adapter = new EventsAdapter(getContext(), allEvents);
+        adapter = new EventsAdapter(getContext(), allEvents, this);
 
         rvEvents.setAdapter(adapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -138,6 +143,17 @@ public class EventsFragment extends Fragment {
 
         client = new AsyncHttpClient();
         queryEvents();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            System.out.println("onActivityResult Called");
+            queryEvents();
+            adapter.notifyDataSetChanged();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void loadMoreEvents() {
@@ -180,8 +196,6 @@ public class EventsFragment extends Fragment {
 
     public List<Event> sortEvents(ArrayList<Event> events) {
         // sort events based on their popularity values and return
-        ArrayList<Integer> popularityList = new ArrayList<>();
-        ArrayList<String> namesInit = new ArrayList<>();
         Collections.sort(events, Collections.<Event>reverseOrder());
         return events;
     }
