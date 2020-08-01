@@ -19,5 +19,6 @@ public class ParseApplication extends Application {
                 .applicationId("shreya-solidarity") // should correspond to APP_ID env variable
                 .clientKey("sudo")  // set explicitly unless clientKey is explicitly configured on Parse server
                 .server("https://shreya-solidarity.herokuapp.com/parse/").build());
+
     }
 }

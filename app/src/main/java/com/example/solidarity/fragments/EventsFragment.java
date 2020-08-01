@@ -41,6 +41,7 @@ import com.parse.ParseQuery;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -117,7 +118,7 @@ public class EventsFragment extends Fragment {
         scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                loadMoreEvents();
+                //loadMoreEvents();
             }
         };
         rvEvents.addOnScrollListener(scrollListener);
@@ -147,11 +148,22 @@ public class EventsFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-
+        System.out.println("onActivityResult Eventsfragment called");
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             System.out.println("onActivityResult Called");
-            queryEvents();
+            //queryEvents();
+            //adapter.notifyDataSetChanged();
+            Event event = (Event) Parcels.unwrap(data.getParcelableExtra(Event.class.getSimpleName()));
+            //adapter.notifyItemChanged(adapter.getIndex(event));
+            int position = data.getIntExtra("position", -1);
+            System.out.println("Changed at "+ position);
+            adapter.set(position, event);
+            adapter.notifyItemChanged(position);
             adapter.notifyDataSetChanged();
+           // System.out.println("index changed: " + adapter.getIndex(event));
+            System.out.println(adapter.getItemCount());
+           //System.out.println(event);
+           // System.out.println(adapter.getEvents());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -218,6 +230,7 @@ public class EventsFragment extends Fragment {
                     List<DistanceMatrix> distanceMatrices = DistanceMatrix.fromJsonArray(jsonArray);
 
                     for (int i = 0; i < distanceMatrices.size(); i++) {
+                        System.out.println(Event.getRelativeTimeAgo(events.get(i).getEventDate().toString()));
                         if (distanceMatrices.get(i).getDistance() < 60) {
                             adapter.addEvent(events.get(i));
                             adapter.notifyDataSetChanged();

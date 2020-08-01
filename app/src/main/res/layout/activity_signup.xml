@@ -27,12 +27,21 @@
         android:hint="Enter password here!"
         android:inputType="textPassword" />
 
+    <EditText
+        android:id="@+id/etEmailSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/etPasswordSignup"
+        android:ems="1"
+        android:hint="Enter email here!"
+         />
+
 
     <Button
         android:id="@+id/btnSignup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etPasswordSignup"
+        android:layout_below="@+id/etEmailSignup"
         android:layout_marginTop="2dp"
         android:backgroundTint="#FFD1D1"
         android:text="Sign Up" />

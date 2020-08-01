@@ -20,6 +20,7 @@ public class SignupActivity extends AppCompatActivity {
     public static final String TAG = "SignupActivity";
     private EditText etUsernameSignup;
     private EditText etPasswordSignup;
+    private EditText etEmailSignup;
     private Button btnSignup;
     private Button btnGo;
 
@@ -30,6 +31,7 @@ public class SignupActivity extends AppCompatActivity {
 
         etUsernameSignup = findViewById(R.id.etUsernameSignup);
         etPasswordSignup = findViewById(R.id.etPasswordSignup);
+        etEmailSignup = findViewById(R.id.etEmailSignup);
         btnSignup = findViewById(R.id.btnSignup);
         btnGo = findViewById(R.id.btnGo);
 
@@ -38,7 +40,8 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String username = etUsernameSignup.getText().toString();
                 String password = etPasswordSignup.getText().toString();
-                signupUser(username, password);
+                String email = etEmailSignup.getText().toString();
+                signupUser(username, password, email);
             }
         });
 
@@ -54,11 +57,12 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-    private void signupUser(String username, String password) {
+    private void signupUser(String username, String password, String email) {
         Log.i(TAG, "Attempting to sign up user " + username);
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
+        user.setEmail(email);
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

@@ -1,14 +1,11 @@
 package com.example.solidarity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,8 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.solidarity.fragments.EventsFragment;
-import com.parse.Parse;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
@@ -73,6 +68,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         events.add(event);
     }
 
+    public int getIndex(Event event) {
+        return events.indexOf(event);
+    }
+
+    public List<Event> getEvents(){
+        return events;
+    }
+
+    public void set(int index, Event event) {
+        events.set(index, event);
+    }
 
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -90,7 +96,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             ivImage = itemView.findViewById(R.id.ivImage);
-            tvUsername = itemView.findViewById(R.id.tvUsername);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             tvLocation = itemView.findViewById(R.id.tvLocation);
             tvDate = itemView.findViewById(R.id.tvDate);
@@ -99,10 +104,9 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
         public void bind(final Event event) {
             tvTitle.setText(event.getTitle());
-            tvUsername.setText(event.getAuthor().getUsername());
             tvDescription.setText(event.getDescription());
             tvLocation.setText(event.getLocation());
-            tvDate.setText(event.getEventDate().toString());
+            tvDate.setText(Event.getRelativeTimeAgo(event.getEventDate().toString()));
 
             ParseFile image = event.getImage();
             if (image != null) {
@@ -112,9 +116,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     Intent intent = new Intent(context, EventDetailsActivity.class);
                     intent.putExtra(Event.class.getSimpleName(), Parcels.wrap(event));
-
+                    intent.putExtra("position", getAdapterPosition());
                     fragment.startActivityForResult(intent, REQUEST_CODE);
                 }
             });
