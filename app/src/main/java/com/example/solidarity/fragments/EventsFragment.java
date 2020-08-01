@@ -148,22 +148,13 @@ public class EventsFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        System.out.println("onActivityResult Eventsfragment called");
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            System.out.println("onActivityResult Called");
-            //queryEvents();
-            //adapter.notifyDataSetChanged();
             Event event = (Event) Parcels.unwrap(data.getParcelableExtra(Event.class.getSimpleName()));
-            //adapter.notifyItemChanged(adapter.getIndex(event));
             int position = data.getIntExtra("position", -1);
             System.out.println("Changed at "+ position);
             adapter.set(position, event);
             adapter.notifyItemChanged(position);
             adapter.notifyDataSetChanged();
-           // System.out.println("index changed: " + adapter.getIndex(event));
-            System.out.println(adapter.getItemCount());
-           //System.out.println(event);
-           // System.out.println(adapter.getEvents());
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
