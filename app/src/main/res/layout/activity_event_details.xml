@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#FF7E7E"
+        android:textStyle="bold"
         tools:text="title" />
 
     <ImageView
@@ -20,6 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_below="@id/tvTitleDetails"
+        android:layout_marginTop="5dp"
         tools:srcCompat="@tools:sample/avatars" />
 
 
@@ -28,15 +31,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ivImageDetails"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        tools:text="shreya" />
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        tools:text="Created by: shreya" />
+
+    <TextView
+        android:id="@+id/tvDateDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUsernameDetails"
+        android:layout_marginTop="5dp"
+        android:textColor="#FF7E7E"
+        tools:text="August 14, 2020" />
 
     <TextView
         android:id="@+id/tvDescriptionDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvUsernameDetails"
+        android:layout_below="@id/tvDateDetails"
         android:layout_marginTop="5dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
         tools:text="Event description" />
 
     <TextView
@@ -45,21 +60,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDescriptionDetails"
         android:layout_marginTop="5dp"
+        android:textColor="#3A53E1"
         tools:text="1 Hacker Way" />
-
-    <TextView
-        android:id="@+id/tvDateDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvLocationDetails"
-        android:layout_marginTop="5dp"
-        tools:text="August 14, 2020" />
 
     <Button
         android:id="@+id/btnLike"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/tvDateDetails"
+        android:layout_below="@+id/tvLocationDetails"
         android:layout_alignParentStart="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="10dp"
@@ -70,7 +78,7 @@
         android:id="@+id/btnGoing"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/tvDateDetails"
+        android:layout_below="@+id/tvLocationDetails"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:layout_toStartOf="@+id/tvGoing"
@@ -80,7 +88,7 @@
         android:id="@+id/tvLikes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDateDetails"
+        android:layout_below="@+id/tvLocationDetails"
         android:layout_marginStart="10dp"
         android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/btnLike"
@@ -90,7 +98,7 @@
         android:id="@+id/tvGoing"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvDateDetails"
+        android:layout_below="@+id/tvLocationDetails"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="5dp"

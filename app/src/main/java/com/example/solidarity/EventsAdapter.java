@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.solidarity.fragments.EventsFragment;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
@@ -120,6 +121,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                     Intent intent = new Intent(context, EventDetailsActivity.class);
                     intent.putExtra(Event.class.getSimpleName(), Parcels.wrap(event));
                     intent.putExtra("position", getAdapterPosition());
+
                     fragment.startActivityForResult(intent, REQUEST_CODE);
                 }
             });
