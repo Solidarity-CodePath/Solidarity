@@ -1,23 +1,36 @@
 package com.example.solidarity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.solidarity.fragments.EventsFragment;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class EventDetailsActivity extends AppCompatActivity {
+
+    public static final String TAG = "EventDetailsActivity";
     Event event;
     TextView tvTitleDetails;
     ImageView ivImageDetails;
@@ -37,6 +50,11 @@ public class EventDetailsActivity extends AppCompatActivity {
     int result = RESULT_CANCELED;
     int position;
 
+    protected LocationManager locationManager;
+    public String latitude ="";
+    public String longitude= "";
+    private static final int REQUEST_LOCATION = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +72,23 @@ public class EventDetailsActivity extends AppCompatActivity {
         tvGoing = findViewById(R.id.tvGoing);
         currentUser = ParseUser.getCurrentUser();
 
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "Location access not provided");
+            ActivityCompat.requestPermissions( this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+            return;
+        }
+        Location locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if (locationGPS != null) {
+            double lat = locationGPS.getLatitude();
+            double longi = locationGPS.getLongitude();
+            latitude = String.valueOf(lat);
+            longitude= String.valueOf(longi);
+            Log.i(TAG, "Your Location: " + "\n" + "Latitude: " + latitude + "\n" + "Longitude: " + longitude);
+        } else {
+            Log.e(TAG, "Unable to find location.");
+        }
+
         event = (Event) Parcels.unwrap(getIntent().getParcelableExtra(Event.class.getSimpleName()));
         position = getIntent().getIntExtra("position", -1);
 
@@ -67,6 +102,18 @@ public class EventDetailsActivity extends AppCompatActivity {
         tvDescriptionDetails.setText(event.getDescription());
         tvLocationDetails.setText(event.getLocation());
         tvDateDetails.setText(Event.getRelativeTimeAgo(event.getEventDate().toString()));
+
+        tvLocationDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri gmmIntentUri = Uri.parse(String.format(Locale.ENGLISH,"geo:%s,%s?q=%s", latitude, longitude, tvLocationDetails.getText()));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
+            }
+        });
 
         if (event.getUserLikes() == null) {
             currLikes = 0;
