@@ -71,8 +71,8 @@ public class EventsFragment extends Fragment {
     private final int REQUEST_CODE = 20;
 
 
-    String latitude ="";
-    String longitude= "";
+    public String latitude ="";
+    public String longitude= "";
     public static String API_KEY;
 
     public EventsFragment() {
@@ -151,7 +151,6 @@ public class EventsFragment extends Fragment {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
             Event event = (Event) Parcels.unwrap(data.getParcelableExtra(Event.class.getSimpleName()));
             int position = data.getIntExtra("position", -1);
-            System.out.println("Changed at "+ position);
             adapter.set(position, event);
             adapter.notifyItemChanged(position);
             adapter.notifyDataSetChanged();
