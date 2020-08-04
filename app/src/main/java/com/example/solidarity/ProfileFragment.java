@@ -44,6 +44,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_OK;
 
 
 public class ProfileFragment extends EventsFragment {
@@ -52,6 +53,7 @@ public class ProfileFragment extends EventsFragment {
     public static final int GET_FROM_GALLERY = 3;
     CircleImageView profImage;
     private SwipeRefreshLayout swipeContainer;
+    private final int REQUEST_CODE = 20;
 
 
     public String photoFileName = "photo.jpg";
@@ -116,7 +118,11 @@ public class ProfileFragment extends EventsFragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            System.out.println("Entering onActvityResult in ProfileFragment");
+            queryEvents();
+            adapter.notifyDataSetChanged();
+        }
 
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
             Uri selectedImage = data.getData();
@@ -160,6 +166,12 @@ public class ProfileFragment extends EventsFragment {
         if (item.getItemId() == R.id.logout) {
             ParseUser.logOut();
             Intent intent = new Intent(getContext(), LoginActivity.class);
+            getContext().startActivity(intent);
+
+            return true;
+        }
+        if (item.getItemId() == R.id.editProfile) {
+            Intent intent = new Intent(getContext(), EditProfileActivity.class);
             getContext().startActivity(intent);
 
             return true;

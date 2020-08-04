@@ -36,6 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvUsernameDetails"
+        android:layout_marginTop="5dp"
         tools:text="Event description" />
 
     <TextView
@@ -43,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDescriptionDetails"
+        android:layout_marginTop="5dp"
         tools:text="1 Hacker Way" />
 
     <TextView
@@ -50,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvLocationDetails"
+        android:layout_marginTop="5dp"
         tools:text="August 14, 2020" />
 
     <Button

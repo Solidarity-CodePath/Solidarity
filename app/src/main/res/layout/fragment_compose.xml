@@ -49,8 +49,7 @@
         android:id="@+id/etLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="location"
-        />
+        android:hint="Location-Ex: 1 Hacker Way Menlo Park , CA .. " />
     <DatePicker
         android:id="@+id/dpDate"
         android:layout_width="match_parent"

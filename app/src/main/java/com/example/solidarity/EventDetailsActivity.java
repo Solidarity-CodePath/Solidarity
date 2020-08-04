@@ -34,7 +34,8 @@ public class EventDetailsActivity extends AppCompatActivity {
     int currGoing;
     ArrayList<String> goingList;
     ParseUser currentUser;
-
+    int result = RESULT_CANCELED;
+    int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         currentUser = ParseUser.getCurrentUser();
 
         event = (Event) Parcels.unwrap(getIntent().getParcelableExtra(Event.class.getSimpleName()));
+        position = getIntent().getIntExtra("position", -1);
 
         ParseFile image = event.getImage();
         if (image != null) {
@@ -61,10 +63,10 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
 
         tvTitleDetails.setText(event.getTitle());
-        tvUsernameDetails.setText(event.getAuthor().getUsername());
+        tvUsernameDetails.setText("Created By: " + event.getAuthor().getUsername());
         tvDescriptionDetails.setText(event.getDescription());
         tvLocationDetails.setText(event.getLocation());
-        tvDateDetails.setText(event.getEventDate().toString());
+        tvDateDetails.setText(Event.getRelativeTimeAgo(event.getEventDate().toString()));
 
         if (event.getUserLikes() == null) {
             currLikes = 0;
@@ -117,6 +119,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     tvLikes.setText(String.valueOf(currLikes) + " likes");
                     btnLike.setBackgroundResource(R.drawable.like_empty);
                 }
+                result = RESULT_OK;
             }
         });
 
@@ -149,6 +152,7 @@ public class EventDetailsActivity extends AppCompatActivity {
                     tvGoing.setText(String.valueOf(currGoing) + " going");
                     btnGoing.setBackgroundResource(R.drawable.correct);
                 }
+                result = RESULT_OK;
             }
         });
 
@@ -158,7 +162,9 @@ public class EventDetailsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        setResult(RESULT_OK, intent);
+        intent.putExtra(Event.class.getSimpleName(), Parcels.wrap(event));
+        intent.putExtra("position", position);
+        setResult(result, intent);
         finish();
         super.onBackPressed();
     }
