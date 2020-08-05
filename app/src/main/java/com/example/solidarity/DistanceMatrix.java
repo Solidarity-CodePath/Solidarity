@@ -30,6 +30,9 @@ public class DistanceMatrix {
 
         //String is in format "6 mi" or "6.4 mi", or "1,779 mi", so need to reformat before converting to int
         String distanceConvert = distanceMatrix.distanceText.replaceAll(",", "");
+        if (distanceConvert.contains("ft")) {
+            distanceConvert = "0";
+        }
         if (distanceConvert.contains(".")) {
             distanceConvert = distanceConvert.substring(0, distanceConvert.indexOf("."));
         }

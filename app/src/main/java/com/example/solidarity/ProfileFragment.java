@@ -40,6 +40,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -60,7 +62,6 @@ public class ProfileFragment extends EventsFragment {
     File photoFile;
     ParseUser currentUser;
 
-    private EndlessRecyclerViewScrollListener scrollListener;
     private RecyclerView rvEvents;
     protected EventsAdapter adapter;
 
@@ -104,14 +105,6 @@ public class ProfileFragment extends EventsFragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
         rvEvents.setLayoutManager(linearLayoutManager);
-
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-            }
-        };
-        rvEvents.addOnScrollListener(scrollListener);
-
 
         queryEvents();
     }
@@ -183,9 +176,11 @@ public class ProfileFragment extends EventsFragment {
 
     @Override
     protected void queryEvents() {
+        Date currentTime = Calendar.getInstance().getTime();
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.include(Event.KEY_AUTHOR);
         query.whereEqualTo(Event.KEY_AUTHOR, ParseUser.getCurrentUser());
+        query.whereGreaterThan("date", currentTime);
         query.addDescendingOrder(Event.KEY_CREATED);
 
         query.findInBackground(new FindCallback<Event>() {

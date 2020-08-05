@@ -62,7 +62,10 @@ public class SignupActivity extends AppCompatActivity {
         ParseUser user = new ParseUser();
         user.setUsername(username);
         user.setPassword(password);
-        user.setEmail(email);
+        if (!email.isEmpty()) {
+            user.setEmail(email);
+        }
+        user.put("radius", 60);
 
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

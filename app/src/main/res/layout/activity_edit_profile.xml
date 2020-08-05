@@ -41,15 +41,38 @@
         android:text="Enter new email to update email" />
 
 
+    <SeekBar
+        android:id="@+id/seekBarRadius"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvEditEmail"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="270dp"
+        android:layout_marginEnd="30dp"
+        android:max="60"
+        android:progress="60" />
+
+    <TextView
+        android:id="@+id/tvRadius"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBarRadius"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="Current mile radius set to: 60" />
+
     <Button
         android:id="@+id/btnSaveProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editEmail"
+        android:layout_below="@id/tvRadius"
         android:layout_alignParentStart="true"
         android:layout_marginStart="160dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="75dp"
         android:backgroundTint="#FFD1D1"
         android:text="Save" />
+
 
 </RelativeLayout>
