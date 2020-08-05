@@ -51,13 +51,12 @@
             android:textStyle="bold"
             tools:text="Event description" />
 
-        <TextView
-            android:id="@+id/tvLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDescription"
-            android:layout_marginTop="2dp"
-            tools:text="1 Hacker Way" />
+    <TextView
+        android:id="@+id/tvLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDescription"
+        tools:text="1 Hacker Way" />
 
     </RelativeLayout>
 

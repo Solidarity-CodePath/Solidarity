@@ -27,15 +27,14 @@ import android.view.ViewGroup;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.solidarity.DistanceMatrix;
-import com.example.solidarity.EndlessRecyclerViewScrollListener;
 import com.example.solidarity.Event;
 import com.example.solidarity.EventsAdapter;
-import com.example.solidarity.ProfileFragment;
 import com.example.solidarity.R;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 
 import org.json.JSONArray;
@@ -45,8 +44,9 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import java.util.Calendar;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
 
 
@@ -62,7 +62,6 @@ public class EventsFragment extends Fragment {
     protected EventsAdapter adapter;
     protected List<Event> allEvents;
     private SwipeRefreshLayout swipeContainer;
-    private EndlessRecyclerViewScrollListener scrollListener;
 
     protected LocationManager locationManager;
     AsyncHttpClient client;
@@ -74,6 +73,7 @@ public class EventsFragment extends Fragment {
     public String latitude ="";
     public String longitude= "";
     public static String API_KEY;
+    ParseUser currentUser;
 
     public EventsFragment() {
 
@@ -92,6 +92,7 @@ public class EventsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         rvEvents = view.findViewById(R.id.rvEvents);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+        currentUser = ParseUser.getCurrentUser();
 
         API_KEY = getString(R.string.gmaps_apikey);
 
@@ -114,14 +115,6 @@ public class EventsFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
         rvEvents.setLayoutManager(linearLayoutManager);
-
-        scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                //loadMoreEvents();
-            }
-        };
-        rvEvents.addOnScrollListener(scrollListener);
 
         locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
@@ -158,27 +151,11 @@ public class EventsFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void loadMoreEvents() {
-        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
-        query.include(Event.KEY_AUTHOR);
-        query.findInBackground(new FindCallback<Event>() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void done(List<Event> events, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with getting events", e);
-                    return;
-                }
-                ArrayList<Event> sortedEvents = (ArrayList<Event>) sortEvents((ArrayList<Event>) events);
-
-                getDist(latitude, longitude, sortedEvents);
-            }
-        });
-    }
-
     protected void queryEvents() {
+        Date currentTime = Calendar.getInstance().getTime();
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.include(Event.KEY_AUTHOR);
+        query.whereGreaterThan("date", currentTime);
         query.findInBackground(new FindCallback<Event>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -189,7 +166,6 @@ public class EventsFragment extends Fragment {
                 }
                 adapter.clear();
                 ArrayList<Event> sortedEvents = (ArrayList<Event>) sortEvents((ArrayList<Event>) events);
-
                 getDist(latitude, longitude, sortedEvents);
                 swipeContainer.setRefreshing(false);
             }
@@ -220,8 +196,7 @@ public class EventsFragment extends Fragment {
                     List<DistanceMatrix> distanceMatrices = DistanceMatrix.fromJsonArray(jsonArray);
 
                     for (int i = 0; i < distanceMatrices.size(); i++) {
-                        System.out.println(Event.getRelativeTimeAgo(events.get(i).getEventDate().toString()));
-                        if (distanceMatrices.get(i).getDistance() < 60) {
+                        if (distanceMatrices.get(i).getDistance() < currentUser.getInt("radius")) {
                             adapter.addEvent(events.get(i));
                             adapter.notifyDataSetChanged();
                         }

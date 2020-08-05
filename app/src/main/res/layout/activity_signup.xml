@@ -33,8 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/etPasswordSignup"
         android:ems="1"
-        android:hint="Enter email here!"
-         />
+        android:hint="Enter email here! (Optional)" />
 
 
     <Button

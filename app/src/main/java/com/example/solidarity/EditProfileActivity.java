@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -21,6 +23,8 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.RequestPasswordResetCallback;
 import com.parse.SaveCallback;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,6 +42,8 @@ public class EditProfileActivity extends AppCompatActivity {
     EditText editUsername;
     EditText editEmail;
     Button btnSave;
+    SeekBar seekBarRadius;
+    TextView tvRadius;
 
     public static final int GET_FROM_GALLERY = 3;
     File photoFile;
@@ -52,6 +58,11 @@ public class EditProfileActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.editEmail);
         btnSave = findViewById(R.id.btnSaveProfile);
         currentUser = ParseUser.getCurrentUser();
+        seekBarRadius = (SeekBar) findViewById(R.id.seekBarRadius);
+        tvRadius = findViewById(R.id.tvRadius);
+
+        seekBarRadius.setProgress(currentUser.getInt("radius"));
+
         ParseFile pImage = currentUser.getParseFile("profileImage");
         if (pImage != null) {
             Glide.with(this).load(pImage.getUrl()).into(editProfileImage);
@@ -68,6 +79,29 @@ public class EditProfileActivity extends AppCompatActivity {
                         MediaStore.Images.Media.INTERNAL_CONTENT_URI), GET_FROM_GALLERY);
             }
         });
+
+        seekBarRadius.setProgress(currentUser.getInt("radius"));
+        tvRadius.setText("Current mile radius set to: " + currentUser.getInt("radius"));
+
+        seekBarRadius.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int progressChangedValue = 0;
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                progressChangedValue = i;
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                tvRadius.setText("Current mile radius set to: " + progressChangedValue);
+            }
+        });
+
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,6 +168,8 @@ public class EditProfileActivity extends AppCompatActivity {
             if (!editEmail.getText().equals("")) {
                 currentUser.setEmail(editEmail.getText().toString());
             }
+
+            currentUser.put("radius", seekBarRadius.getProgress());
 
             currentUser.saveInBackground(new SaveCallback() {
                 @Override
