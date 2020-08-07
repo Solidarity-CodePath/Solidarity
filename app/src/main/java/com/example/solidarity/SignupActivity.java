@@ -22,7 +22,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText etPasswordSignup;
     private EditText etEmailSignup;
     private Button btnSignup;
-    private Button btnGo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class SignupActivity extends AppCompatActivity {
         etPasswordSignup = findViewById(R.id.etPasswordSignup);
         etEmailSignup = findViewById(R.id.etEmailSignup);
         btnSignup = findViewById(R.id.btnSignup);
-        btnGo = findViewById(R.id.btnGo);
+
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,14 +45,7 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        btnGo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = etUsernameSignup.getText().toString();
-                String password = etPasswordSignup.getText().toString();
-                loginUserfromSignup(username, password);
-            }
-        });
+
 
     }
 
@@ -79,26 +72,8 @@ public class SignupActivity extends AppCompatActivity {
                 Toast.makeText(SignupActivity.this, "Success on Sign Up!", Toast.LENGTH_SHORT).show();
             }
         });
-    }
 
-    private void loginUserfromSignup(String username, String password) {
-        Log.i(TAG, "Attempting to login user " + username);
-
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e != null) {
-                    Log.e(TAG, "Issue with login", e);
-                    Toast.makeText(SignupActivity.this, "Issue with login!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                //navigate to main activity if user has logged in properly
-                Intent i = new Intent(SignupActivity.this, MainActivity.class);
-                startActivity(i);
-                finish();
-                Toast.makeText(SignupActivity.this, "Success, logged in as user "+ ParseUser.getCurrentUser().getUsername(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        finish();
     }
 
 

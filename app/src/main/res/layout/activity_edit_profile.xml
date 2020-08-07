@@ -13,7 +13,7 @@
         android:id="@+id/editProfileImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginStart="150dp"
+        android:layout_marginStart="140dp"
         android:layout_marginTop="5dp"
         tools:src="@drawable/camera" />
 
