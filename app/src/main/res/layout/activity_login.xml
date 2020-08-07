@@ -3,10 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/gradient_background">
 
 
     <ImageView
@@ -16,9 +17,9 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="-2dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="2dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
         app:srcCompat="@drawable/slogo" />
 
     <EditText
@@ -26,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:layout_below="@+id/ivIntroLogo"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="15dp"
         android:ems="1"
         android:hint="username" />
 
@@ -35,33 +36,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etUsername"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="password"
         android:inputType="textPassword" />
 
+
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/etPassword"
-        android:background="#FFD1D1"
-        android:text="Login" />
-
-    <Button
-        android:id="@+id/btnSignupPage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnLogin"
-        android:layout_marginTop="2dp"
-        android:backgroundTint="#FFD1D1"
-        android:text="Sign Up" />
-
-    <TextView
-        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnSignupPage"
-        android:layout_marginTop="2dp"
+        android:layout_below="@id/etPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_round"
+        android:text="Login" />
+
+    <TextView
+        android:id="@+id/tvSignupPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_marginTop="10dp"
         android:text="Don't have an account? Click to sign up!" />
 
 

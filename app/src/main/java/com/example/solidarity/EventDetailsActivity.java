@@ -35,6 +35,7 @@ import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.example.solidarity.fragments.EventsFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
@@ -133,7 +134,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
 
         tvTitleDetails.setText(event.getTitle());
-        tvUsernameDetails.setText("Created By: " + event.getAuthor().getUsername());
+        tvUsernameDetails.setText("@" + event.getAuthor().getUsername());
         tvDescriptionDetails.setText(event.getDescription());
         tvLocationDetails.setText(event.getLocation());
         tvDateDetails.setText(Event.getRelativeTimeAgo(event.getEventDate().toString()));

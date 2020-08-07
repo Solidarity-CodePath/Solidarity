@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
+    android:foregroundTint="#FFFFFF"
     tools:context=".fragments.EventsFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -12,27 +16,40 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="150dp"
+        android:layout_marginTop="5dp"
         tools:src="@drawable/camera" />
 
-    <TextView
-        android:id="@+id/tvIntro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Events in your area"
-        android:textSize="36sp"
-        android:textStyle="bold" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardEvents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#FF7E7E">
+
+        <TextView
+            android:id="@+id/tvIntro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:text="Events in your area"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="100dp"
+        android:backgroundTint="#FFFFFF">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvEvents"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="100dp"
+            android:backgroundTint="#FFCACA"
+            android:padding="8dp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>
