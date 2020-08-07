@@ -5,16 +5,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="0dp"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@drawable/gradient_background">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
     <EditText
         android:id="@+id/etUsernameSignup"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_marginTop="7dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="1"
         android:hint="Enter username here!" />
 
@@ -23,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etUsernameSignup"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Enter password here!"
         android:inputType="textPassword" />
@@ -32,26 +38,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/etPasswordSignup"
+        android:layout_marginTop="10dp"
         android:ems="1"
         android:hint="Enter email here! (Optional)" />
 
 
     <Button
         android:id="@+id/btnSignup"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etEmailSignup"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="#FFD1D1"
-        android:text="Sign Up" />
+        android:text="Sign Up"
+        android:background="@drawable/button_round"/>
 
     <Button
         android:id="@+id/btnGo"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnSignup"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="#FFD1D1"
-        android:text="Go!" />
+        android:text="Go!"
+        android:background="@drawable/button_round"/>
+    </RelativeLayout>
 
 </RelativeLayout>

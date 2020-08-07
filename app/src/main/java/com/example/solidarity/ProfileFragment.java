@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -64,6 +65,7 @@ public class ProfileFragment extends EventsFragment {
 
     private RecyclerView rvEvents;
     protected EventsAdapter adapter;
+    private CardView cardEvents;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,8 +81,10 @@ public class ProfileFragment extends EventsFragment {
         profImage = view.findViewById(R.id.ivProfileImage);
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         rvEvents = view.findViewById(R.id.rvEvents);
+        cardEvents = view.findViewById(R.id.cardEvents);
 
-        flayout.removeView(view.findViewById(R.id.tvIntro));
+        flayout.removeView(cardEvents);
+
 
         profImage.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

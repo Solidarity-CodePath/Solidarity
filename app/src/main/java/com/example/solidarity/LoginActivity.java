@@ -15,6 +15,7 @@ import android.view.ViewAnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -28,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
-    private Button btnSignupPage;
+    TextView tvSignupPage;
     private ImageView ivIntroLogo;
 
 
@@ -45,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        btnSignupPage = findViewById(R.id.btnSignupPage);
+        tvSignupPage = findViewById(R.id.tvSignupPage);
         ivIntroLogo = findViewById(R.id.ivIntroLogo);
         ivIntroLogo.setVisibility(View.INVISIBLE);
 
@@ -75,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
-        btnSignupPage.setOnClickListener(new View.OnClickListener() {
+        tvSignupPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
