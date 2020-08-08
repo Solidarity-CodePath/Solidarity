@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.solidarity.Event;
 import com.example.solidarity.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -33,6 +34,7 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -49,11 +51,11 @@ public class ComposeFragment extends Fragment {
     public static final String TAG = "ComposeFragment";
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
 
-    private EditText etDescription;
+    private TextInputEditText etDescription;
     private Button btnCaptureImage;
     private ImageView ivEventImage;
     private Button btnSubmit;
-    private EditText etTitle;
+    private TextInputEditText etTitle;
     private EditText etLocation;
     private DatePicker dpDate;
 
@@ -114,6 +116,14 @@ public class ComposeFragment extends Fragment {
                     return;
                 }
                 Date date = getDateFromDatePicker(dpDate);
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DATE, -1);
+                Date currentTime = cal.getTime();
+
+                if (!currentTime.before(date)) {
+                    Toast.makeText(getContext(), "Cannot create event prior to current date!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (photoFile == null || ivEventImage.getDrawable() == null) {
                     Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
@@ -121,6 +131,7 @@ public class ComposeFragment extends Fragment {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 saveEvent(description, title, location, date, currentUser, photoFile);
+                Toast.makeText(getContext(), "Successful!", Toast.LENGTH_SHORT).show();
             }
         });
     }

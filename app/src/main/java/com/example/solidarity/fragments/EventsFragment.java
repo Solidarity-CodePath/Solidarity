@@ -152,7 +152,9 @@ public class EventsFragment extends Fragment {
     }
 
     protected void queryEvents() {
-        Date currentTime = Calendar.getInstance().getTime();
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        Date currentTime = cal.getTime();
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.include(Event.KEY_AUTHOR);
         query.whereGreaterThan("date", currentTime);
