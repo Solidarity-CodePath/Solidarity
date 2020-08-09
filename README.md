@@ -26,31 +26,24 @@ Allows citizens to easily browse and find political organization or support even
 
 ### 1. User Stories (Required and Optional)
 
-**Required Must-have Stories**
+**Features**
 
-* [ ] User can create an account on Solidarity app
-* [ ] User can see a timeline of already created events in their area within a 60 mile radius after logging in.
-* [ ] Timeline events are shown in order of most popular to least.
-* [ ] User can create their own events and input a title, description, location, and perhaps pictures. Event includes creator name. 
-* [ ] User can click on specific events to see a detailed view of them
-* [ ] User can click on a "like/interested" button on each event, and on a "Going" button on the event. Double tap to like
-* [ ] User can click on their profile to view or upload their own picture and see a display of their name below it.
-* [ ] User can click on their profile where they can view events they have created.
-* [ ] Google Maps SDK to filter events
-* [ ] Material Design library implemented
-* [ ] 
-
-**Optional Nice-to-have Stories**
-
-* [ ] User can use OAuth to log in with Facebook or Google
-* [ ] User can click a share button on each event to share to another social media platform
-* [ ] User can also view events they liked or clicked "goig" for under their profile
-* [ ] User can choose which events they want to be "visible" on their profile
-* [ ] User can click on names in event descriptions to view other user's profile
-* [ ] Users can comment on event posts
-* [ ] Filtering based on tags of posts (Ex: social activism, environmental activism, human rights activism, animal rights activism)
-* [ ] Reformat into fragment based view
-* ...
+* [x] User can create an account on Solidarity app
+* [x] User can see a timeline of already created events in their area within a 60 mile radius after logging in.
+* [x] Timeline events are shown in order of most popular to least.
+* [x] User can create their own events and input a title, description, location, and pictures. Event includes creator name. 
+* [x] User can click on specific events to see a detailed view of them
+* [x] User can click on a "like/interested" button on each event, and on a "Going" button on the event. 
+* [x] User can click on their profile to view or upload their own picture and see a display of their name below it.
+* [x] User can click on their profile where they can view events they have created.
+* [x] Google Maps SDK to filter events
+* [x] Material Design library implemented
+* [x] User can Swipe timeline screen to refresh
+* [x] User can click a share button on each event to share to another social media platform
+* [x] User can edit their profile 
+* [x] Allow user to click on Address in EventDetailsActivity and open location in Google Maps 
+* [x] User can calibrate mile radius for Google Maps -
+* [x] Fragment based view
 
 ### 2. Screen Archetypes
 
