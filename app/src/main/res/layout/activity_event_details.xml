@@ -34,7 +34,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardDetails"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/ivImageDetails"
         android:layout_marginTop="10dp"
         android:backgroundTint="#FFFFFF"
