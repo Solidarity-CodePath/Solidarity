@@ -24,7 +24,7 @@ Allows citizens to easily browse and find political organization or support even
 
 ## Product Spec
 
-### 1. User Stories (Required and Optional)
+### 1. User Stories 
 
 **Features**
 
