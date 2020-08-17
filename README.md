@@ -11,6 +11,8 @@ Original App Design Project - README Template
 
 ## Overview
 ### Description
+In many instances, it’s hard to find information on grassroots political events in your area, and there’s no standardized platform to get this information. Solidarity makes it easy for you to create and engage with political activism events in your area (within a chosen radius), and interact with them as well, so that communities can come together easily to support their favorite causes. 
+
 Allows citizens to easily browse and find political organization or support events in their area, or create one themselves for other users to attend. Citizens can more easily engage with political nearby events and causes that they identify with using this app.  
 
 ### App Evaluation
